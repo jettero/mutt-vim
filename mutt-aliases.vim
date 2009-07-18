@@ -24,6 +24,8 @@ fun! Complete_Emails(findstart, base)
             let start -= 1
         endwhile
 
+        echo "start: " start
+
         return start
 
     else
@@ -47,3 +49,5 @@ endfun
 
 call Read_Aliases()
 set completefunc=Complete_Emails
+imap @@ <C-X><C-U><C-P>
+
