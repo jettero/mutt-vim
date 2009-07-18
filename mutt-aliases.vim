@@ -8,6 +8,12 @@
 "
 " Invoke the completion in insert mode with either i_CTRL-X_CTRL-U, or with
 " macro: imap macro: @@ inserted by this .vim script.
+"
+" Author: Paul Miller <jettero@cpan.org>
+" Copyright: Paul Miller
+" License: Public Domain
+" Repository: http://github.com/jettero/mutt-vim/
+"
 
 let s:address_dictionary = {}
 
