@@ -49,5 +49,5 @@ endfun
 
 call Read_Aliases()
 set completefunc=Complete_Emails
-imap @@ <C-X><C-U><C-P>
+imap @@ <C-X><C-U>
 
