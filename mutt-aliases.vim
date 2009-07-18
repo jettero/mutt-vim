@@ -1,17 +1,22 @@
 " my mutt aliases omni
 
-let address_dictionary = {}
+let s:address_dictionary = {}
 
-fun! read_aliases()
-    let lines = readfile("~/.aliases")
+fun! Read_Aliases()
+    let lines = readfile(expand("~/.aliases"))
     for line in lines
-        echo line
+        if line =~ "^[ ]*alias "
+            let tokens  = split(line)
+            let alias   = tokens[1]
+            let address = join(tokens[2:])
+
+            let s:address_dictionary[alias] = address
+        endif
     endfor
 endfun
 
-fun! complete_emails(findstart, base)
+fun! Complete_Emails(findstart, base)
     if a:findstart
-        " locate the start of the word
         let line = getline('.')
         let start = col('.') - 1
 
@@ -22,12 +27,17 @@ fun! complete_emails(findstart, base)
         return start
 
     else
-        " find months matching with "a:base"
         let res = []
 
-        for m in split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec")
+        for alias in keys(s:address_dictionary)
             if m =~ '^' . a:base
-                call add(res, m)
+                call add(res, s:address_dictionary[alias])
+            endif
+        endfor
+
+        for address in values(s:address_dictionary)
+            if m =~ a:base
+                call add(res, address)
             endif
         endfor
 
@@ -35,5 +45,5 @@ fun! complete_emails(findstart, base)
     endif
 endfun
 
-call read_aliases()
-set completefunc=complete_emails
+call Read_Aliases()
+set completefunc=Complete_Emails
