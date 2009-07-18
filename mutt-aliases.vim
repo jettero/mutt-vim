@@ -30,13 +30,13 @@ fun! Complete_Emails(findstart, base)
         let res = []
 
         for alias in keys(s:address_dictionary)
-            if m =~ '^' . a:base
+            if alias =~ '^' . a:base
                 call add(res, s:address_dictionary[alias])
             endif
         endfor
 
         for address in values(s:address_dictionary)
-            if m =~ a:base
+            if address =~ a:base
                 call add(res, address)
             endif
         endfor
