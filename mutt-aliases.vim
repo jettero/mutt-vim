@@ -1,4 +1,13 @@
-" my mutt aliases omni
+" my mutt aliases complete function(s)
+" 
+" To install this, add it to ~/.vim/scripts/ or somewhere
+" and add something like the following:
+"
+"   au BufRead /tmp/mutt-* source ~/.vim/scripts/mutt-aliases.vim
+"   au BufRead ./example.file source ./mutt-aliases.vim
+"
+" Invoke the completion in insert mode with either i_CTRL-X_CTRL-U, or with
+" macro: imap macro: @@ inserted by this .vim script.
 
 let s:address_dictionary = {}
 
