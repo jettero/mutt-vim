@@ -12,6 +12,12 @@
 " The aliases file is assumed to be ~/.aliases, or whatever your ~/.muttrc file
 " says.  " You can override by setting: let g:mutt_aliases_file="~/.blarg"
 "
+" You can include additional matches (presumably for the body of the message)
+" by dumping text into files in ~/.canned/ .  E.g.,
+"
+" 0) echo lol, canned response > ~/.canned/lol
+" 1) and then, type lol@@ and poofy, you've got your canned response
+"
 " Author: Paul Miller <jettero@cpan.org>
 " Copyright: Paul Miller
 " License: Public Domain
@@ -56,7 +62,7 @@ fun! Complete_Emails(findstart, base)
         endfor
 
         for address in values(s:address_dictionary)
-            if address =~? a:base
+            if address =~? '\<' . a:base
                 call add(res, address)
             endif
         endfor
@@ -66,7 +72,12 @@ fun! Complete_Emails(findstart, base)
             for file in canned
                 let ftok = split(file, "/")
                 let bnam = ftok[-1]
-                call add(res, {'word': file, 'abbr': 'canned-response ' . bnam})
+
+                if bnam =~ '^' . a:base
+                    let text = join(readfile(file), "\n")
+
+                    call add(res, {'word': text, 'abbr': 'canned-response ' . bnam})
+                endif
             endfor
         endif
 
