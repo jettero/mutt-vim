@@ -38,7 +38,7 @@ fun! Complete_Emails(findstart, base)
         let line = getline('.')
         let start = col('.') - 1
 
-        while start > 0 && line[start - 1] =~ '\a'
+        while start > 0 && line[start - 1] =~ '\S'
             let start -= 1
         endwhile
 
@@ -60,6 +60,15 @@ fun! Complete_Emails(findstart, base)
                 call add(res, address)
             endif
         endfor
+
+        let canned = split(glob("~/.canned/*"), "\n")
+        if len(canned)
+            for file in canned
+                let ftok = split(file, "/")
+                let bnam = ftok[-1]
+                call add(res, {'word': file, 'abbr': 'canned-response ' . bnam})
+            endfor
+        endif
 
         return res
     endif
