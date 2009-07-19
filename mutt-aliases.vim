@@ -19,8 +19,7 @@
 "
 
 fun! Read_Aliases()
-    echo "reading aliases from" s:aliases_file
-    let lines = readfile(expand(s:aliases_file))
+    let lines = readfile(s:aliases_file)
     for line in lines
         if line =~ "^[ ]*alias "
             let tokens  = split(line)
@@ -85,6 +84,14 @@ if exists("g:mutt_aliases_file")
     let s:aliases_file = g:mutt_aliases_file
 endif
 
-call Read_Aliases()
-set completefunc=Complete_Emails
-imap @@ <C-X><C-U>
+let s:aliases_file = expand(s:aliases_file)
+if filereadable(s:aliases_file)
+    echo "reading aliases from" s:aliases_file " -- use @@ to activate (from insert mode)"
+    call Read_Aliases()
+    set completefunc=Complete_Emails
+    imap @@ <C-X><C-U>
+
+else
+    echo "could not read aliases file: " s:aliases_file
+
+endif
