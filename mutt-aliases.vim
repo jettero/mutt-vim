@@ -86,7 +86,6 @@ endif
 
 let s:aliases_file = expand(s:aliases_file)
 if filereadable(s:aliases_file)
-    echo "reading aliases from" s:aliases_file " -- use @@ to activate (from insert mode)"
     call Read_Aliases()
     set completefunc=Complete_Emails
     imap @@ <C-X><C-U>
