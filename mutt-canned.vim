@@ -26,7 +26,7 @@ if len(canned)
         let ftok = split(file, "/")
         let bnam = substitute(ftok[-1], '\s', '_', 'g')
 
-        exec  "menu Canned." . bnam . " :r " . file . ""
+        exec  "menu Canned." . bnam . " o<esc>:r " . file . ""
         exec "vmenu Canned." . bnam . " dk:emenu Canned." . bnam . ""
     endfor
 endif
