@@ -9,16 +9,18 @@
 " Invoke the completion in insert mode with either i_CTRL-X_CTRL-U, or with
 " macro: imap macro: @@ inserted by this .vim script.
 "
+" The aliases file is assumed to be ~/.aliases, or whatever your ~/.muttrc file
+" says.  " You can override by setting: let g:mutt_aliases_file="~/.blarg"
+"
 " Author: Paul Miller <jettero@cpan.org>
 " Copyright: Paul Miller
 " License: Public Domain
 " Repository: http://github.com/jettero/mutt-vim/
 "
 
-let s:address_dictionary = {}
-
 fun! Read_Aliases()
-    let lines = readfile(expand("~/.aliases"))
+    echo "reading aliases from" s:aliases_file
+    let lines = readfile(expand(s:aliases_file))
     for line in lines
         if line =~ "^[ ]*alias "
             let tokens  = split(line)
@@ -62,7 +64,27 @@ fun! Complete_Emails(findstart, base)
     endif
 endfun
 
+let s:aliases_file = "~/.aliases"
+let s:address_dictionary = {}
+let s:muttrc_file = expand("~/.muttrc")
+
+if filereadable(s:muttrc_file)
+    let lines = readfile(s:muttrc_file)
+    for l in lines
+        if l =~ "^[	 ]*set[	 ][	 ]*alias_file[	 ]*=" " strictly speaking, this is just the append point...
+            let ll = split(l, "=")                    " how would you detect a matching source .string location?
+            let le = eval(ll[1])
+
+            let s:aliases_file = le
+            break
+        endif
+    endfor
+endif
+
+if exists("g:mutt_aliases_file")
+    let s:aliases_file = g:mutt_aliases_file
+endif
+
 call Read_Aliases()
 set completefunc=Complete_Emails
 imap @@ <C-X><C-U>
-
