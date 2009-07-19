@@ -72,8 +72,8 @@ let s:muttrc_file = expand("~/.muttrc")
 if filereadable(s:muttrc_file)
     let lines = readfile(s:muttrc_file)
     for l in lines
-        if l =~ "^[	 ]*set[	 ][	 ]*alias_file[	 ]*=" " strictly speaking, this is just the append point...
-            let ll = split(l, "=")                    " how would you detect a matching source .string location?
+        if l =~ '\s*set\s\+alias_file\s*='  " strictly speaking, this is just the append point...
+            let ll = split(l, "=")          " how would you detect a matching source .string location?
             let le = eval(ll[1])
 
             let s:aliases_file = le
