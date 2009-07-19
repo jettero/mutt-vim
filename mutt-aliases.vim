@@ -16,6 +16,8 @@
 " Copyright: Paul Miller
 " License: Public Domain
 " Repository: http://github.com/jettero/mutt-vim/
+" Issue Tracking: http://github.com/jettero/mutt-vim/issues
+"
 "
 
 fun! Read_Aliases()
