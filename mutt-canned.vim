@@ -11,7 +11,7 @@
 " 1.a) hammer CTRL-X (twice or more) to hop through them
 " 1.b) highlight something with V and then hammer CTRL-X to replace it
 " 1.c) highlight something with V and hammer CTRL-V (twice) to build a new canned response
-" 
+"
 "
 " Author: Paul Miller <jettero@cpan.org>
 " Copyright: Paul Miller
