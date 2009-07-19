@@ -12,7 +12,6 @@
 " 1.b) highlight something with V and then hammer CTRL-X to replace it
 " 1.c) highlight something with V and hammer CTRL-V (twice) to build a new canned response
 "
-"
 " Author: Paul Miller <jettero@cpan.org>
 " Copyright: Paul Miller
 " License: Public Domain
@@ -20,19 +19,34 @@
 " Issue Tracking: http://github.com/jettero/mutt-vim/issues
 "
 
-let canned = split(glob("~/.canned/*"), "\n")
-if len(canned)
-    for file in canned
-        let ftok = split(file, "/")
-        let bnam = substitute(ftok[-1], '\s', '_', 'g')
+fun! Read_Canned() 
+    let canned = split(glob("~/.canned/*"), "\n")
+    if len(canned)
+        for file in canned
+            let ftok = split(file, "/")
+            let bnam = substitute(ftok[-1], '\s', '_', 'g')
 
-        exec  "menu Canned." . bnam . " o<esc>:r " . file . ""
-        exec "vmenu Canned." . bnam . " dk:emenu Canned." . bnam . ""
-    endfor
-endif
+            exec  "menu Canned." . bnam . " :r " . file . ""
+        endfor
+    endif
+endfun
+
+fun! Save_Canned() range
+    let lines = getline(a:firstline, a:lastline)
+
+    echo "slurped" len(lines) "lines"
+    let response = input("Response Name: ")
+
+    call writefile(lines, expand("~/.canned/" . response))
+    call Read_Canned()
+endfun
 
 set wildmenu
 set cpo-=<
 set wcm=<C-X>
 
-map <C-X><C-X> :emenu Canned.<C-X>
+call Read_Canned()
+
+ map <C-X><C-X> o<esc>:emenu Canned.<C-X>
+vmap <C-X><C-X> dk:emenu Canned.<C-X>
+vmap <C-V><C-V> :call Save_Canned()
