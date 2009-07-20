@@ -7,10 +7,18 @@
 "   au BufRead ./example.file source ./mutt-canned.vim
 "
 " 0) echo lol, canned response > ~/.canned/lol
-" 1) insert things
-" 1.a) hammer CTRL-X (twice or more) to hop through them
-" 1.b) highlight something with V and then hammer CTRL-X to replace it
-" 1.c) highlight something with V and hammer CTRL-V (twice) to build a new canned response
+"
+" 1.a) insert canned response at current position:
+"      hammer CTRL-X (twice or more) to hop through them
+"
+" 1.b) insert canned response, replacing selected text:
+"      highlight something with V and then hammer CTRL-X to replace it
+"
+" 1.c) build new canned response:
+"      highlight something with V and hammer CTRL-V (twice) to build a new canned response
+"
+" NOTE: This may actually work nicely in gvim, I wouldn't know, but mean to try
+"       that at some point.   Feedback welcome.
 "
 " Author: Paul Miller <jettero@cpan.org>
 " Copyright: Paul Miller
