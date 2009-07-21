@@ -17,7 +17,7 @@
 " License: Public Domain
 " Repository: http://github.com/jettero/mutt-vim/
 " Issue Tracking: http://github.com/jettero/mutt-vim/issues
-" VERSION: 0.92
+" VERSION: 0.93
 "
 
 fun! Read_Aliases()
