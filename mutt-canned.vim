@@ -25,7 +25,7 @@
 " License: Public Domain
 " Repository: http://github.com/jettero/mutt-vim/
 " Issue Tracking: http://github.com/jettero/mutt-vim/issues
-" VERSION: 0.90
+" VERSION: 0.91
 "
 
 fun! Read_Canned() 
