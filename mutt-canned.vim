@@ -35,7 +35,7 @@ fun! Read_Canned()
             let ftok = split(file, "/")
             let bnam = substitute(ftok[-1], '\s', '_', 'g')
 
-            exec  "menu Canned." . bnam . " :r " . file . ""
+            exec  "menu Canned." . bnam . " :r " . escape(file, ' \') . ""
         endfor
     endif
 endfun
